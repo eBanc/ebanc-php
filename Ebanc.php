@@ -30,7 +30,7 @@ class Ebanc {
 	}
 	
 	/* -------------------------------
-			  Custom Settings
+				Custom Settings
 	------------------------------- */
 	
 	/**
@@ -56,7 +56,7 @@ class Ebanc {
 	}
 	
 	/* -------------------------------
-			  Customers
+				Customers
 	------------------------------- */
 	
 	/**
@@ -116,7 +116,7 @@ class Ebanc {
 	}
 	
 	/* -------------------------------
-			  Transactions
+				Transactions
 	------------------------------- */
 	/**
 	 * Gets last 50 transactions
@@ -171,7 +171,7 @@ class Ebanc {
 	}
 	
 	/* -------------------------------
-			  Utility Functions
+				Utility Functions
 	------------------------------- */
 	
 	function sendData($url, $post = false, $fields = null){
