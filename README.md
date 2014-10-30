@@ -5,12 +5,10 @@ PHP bindings for the eBanc API
 
 Installation
 ------------
-When using PHP bindings for the eBanc API, there are a two main ways to use in your project. The first way is to 
-just download the Ebanc.php file and require it in your project. The other way is via composer.
+When using PHP bindings for the eBanc API, there are a two main ways to use in your project. The first way is to just download the Ebanc.php file and require it in your project. The other way is via composer.
 
 ####Composer####
-You can add this 
-to your project via composer by including the following information in your composer.json file:
+You can add this to your project via composer by including the following information in your composer.json file:
 
     "repositories": [
         {
@@ -28,7 +26,7 @@ Usage
 ####Initalize####
 You initalize the API client in the following way:
 
-    import 'Ebanc';
+    import_once 'Ebanc.php';
     
     $apiKey    = '123456789';
     $gatewayId = 'a01';
@@ -79,19 +77,14 @@ Get a the latest information about a specific transaction
     $transaction = $ebanc.getTransaction($uuid);
 
 #####Creating Transactions#####
-When creating a transaction you can either pass in all customer details or simply pass in 
-the uuid for an already created customer. Sometimes it makes sense to just pass in all of 
-the details. This is usually in the case of a single transaction. Other times it makes more 
-sense to store the customer details and just store that uuid on your server to pass in at payment time. This is a good approch when you will have returning customers or need to setup some kind of a schedule, but don't want to store that sensitive information on your server.
+When creating a transaction you can either pass in all customer details or simply pass in the uuid for an already created customer. Sometimes it makes sense to just pass in all of the details. This is usually in the case of a single transaction. Other times it makes more sense to store the customer details and just store that uuid on your server to pass in at payment time. This is a good approch when you will have returning customers or need to setup some kind of a schedule, but don't want to store that sensitive information on your server.
 
 Create Transaction by passing in all details.
 
     $ebanc.createTransaction('Fred', 'Johnson', '123456789', '123456', '150.92');
 
 ######Categories and Memos######
-A category and memo can be used together or seperate to help you with reporting later. The category helps group transaction types together (Example: "Online orders" and "In-store 
-orders"). The memo helps discribe that specific transaction (Example: Put in the ID number 
-of order from your eCommerce or POS system to tie that transaction to the correct order).
+A category and memo can be used together or seperate to help you with reporting later. The category helps group transaction types together (Example: "Online orders" and "In-store orders"). The memo helps discribe that specific transaction (Example: Put in the ID number of order from your eCommerce or POS system to tie that transaction to the correct order).
 
 Create Transaction by passing in all details and optional category and/or memo:
 
