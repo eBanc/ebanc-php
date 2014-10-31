@@ -68,7 +68,7 @@ class Ebanc {
 	 */
 	public function getCustomers() {
 		$url = $this->ebancUrl.'/customers';
-		$customers = $this->sendData($url);
+		$customers = $this->queryApi($url);
 		
 		if(count($customers['customers']) == 0){
 			$this->errorMessage = 'No customers found';
@@ -86,7 +86,7 @@ class Ebanc {
 	 */
 	public function getCustomer($uuid) {
 		$url = $this->ebancUrl.'/customers/'.$uuid;
-		$customer = $this->sendData($url);
+		$customer = $this->queryApi($url);
 		
 		if(count($customer) == 0){
 			$this->errorMessage = 'Customer not found';
@@ -109,7 +109,7 @@ class Ebanc {
 	public function createCustomer($firstName, $lastName, $routingNumber, $accountNumber) {
 		$url = $this->ebancUrl.'/customers';
 		$fields = array('first_name' => $firstName, 'last_name' => $lastName, 'account_number' => $accountNumber, 'routing_number' => $routingNumber);
-		$customer = $this->sendData($url, true, false, $fields);
+		$customer = $this->queryApi($url, true, false, $fields);
 		
 		if(isset($customer['base'])){
 			$this->errorMessage = $customer['base'][0];
@@ -141,7 +141,7 @@ class Ebanc {
 		}
 		
 		if($this->getCustomer($uuid)){
-			$customer = $this->sendData($url, true, true, $fields);
+			$customer = $this->queryApi($url, true, true, $fields);
 			return $customer;
 		}else{
 			return false;
@@ -159,7 +159,7 @@ class Ebanc {
 	 */
 	public function getTransactions() {
 		$url = $this->ebancUrl.'/transactions';
-		$transactions = $this->sendData($url);
+		$transactions = $this->queryApi($url);
 		
 		if(count($transactions['transactions']) == 0){
 			$this->errorMessage = 'No transactions found';
@@ -177,7 +177,7 @@ class Ebanc {
 	 */
 	public function getTransaction($uuid) {
 		$url = $this->ebancUrl.'/transactions/'.$uuid;
-		$transaction = $this->sendData($url);
+		$transaction = $this->queryApi($url);
 		
 		if(count($transaction) == 0){
 			$this->errorMessage = 'Transaction not found';
@@ -200,7 +200,7 @@ class Ebanc {
 	public function createTransaction($firstName, $lastName, $routingNumber, $accountNumber, $amount, $category = null, $memo = null) {
 		$url = $this->ebancUrl.'/transactions';
 		$fields = array('first_name' => $firstName, 'last_name' => $lastName, 'account_number' => $accountNumber, 'routing_number' => $routingNumber, 'amount' => $amount, 'category' => $category, 'memo' => $memo);
-		$transaction = $this->sendData($url, true, false, $fields);
+		$transaction = $this->queryApi($url, true, false, $fields);
 		
 		if(isset($transaction['base'])){
 			$this->errorMessage = $transaction['base'][0];
@@ -220,7 +220,7 @@ class Ebanc {
 	public function createTransactionForCustomer($customerUUID, $amount, $category = null, $memo = null) {
 		$url = $this->ebancUrl.'/transactions';
 		$fields = array('customer_uuid' => $customerUUID, 'amount' => $amount, 'category' => $category, 'memo' => $memo);
-		$transaction = $this->sendData($url, true, false, $fields);
+		$transaction = $this->queryApi($url, true, false, $fields);
 		
 		if(isset($transaction['base'])){
 			$this->errorMessage = $transaction['base'][0];
@@ -234,7 +234,7 @@ class Ebanc {
 				Utility Functions
 	------------------------------- */
 	
-	public function sendData($url, $post = false, $patch = false, $fields = null){
+	public function queryApi($url, $post = false, $patch = false, $fields = null){
 		$this->errorMessage = '';
 		
 		$curl = curl_init();
