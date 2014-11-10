@@ -194,6 +194,9 @@ class Ebanc {
 	 * @param string $lastName
 	 * @param string $routingNumber
 	 * @param string $accountNumber
+	 * @param float $amount
+	 * @param string $category
+	 * @param string $memo
 	 * @return Transactions Object
 	 * @author Kevin Kaske
 	 */
@@ -214,6 +217,9 @@ class Ebanc {
 	 * Create transaction.
 	 *
 	 * @param string $customerUUID
+	 * @param float $amount
+	 * @param string $category
+	 * @param string $memo
 	 * @return Transactions Object
 	 * @author Kevin Kaske
 	 */
