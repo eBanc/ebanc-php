@@ -124,7 +124,9 @@ Create Transaction by passing in all details.
       echo $ebanc->getError();
     }
 
-######Categories and Memos######
+######Types, Categories and, Memos######
+Transaction type can be a debit or credit. If you do not pass in a transaction type, debit is defaulted.
+
 A category and memo can be used together or seperate to help you with reporting later. The category helps group transaction types together (Example: "Online orders" and "In-store orders"). The memo helps discribe that specific transaction (Example: Put in the ID number of order from your eCommerce or POS system to tie that transaction to the correct order).
 
 Create Transaction by passing in all details and optional category and/or memo:
@@ -134,10 +136,11 @@ Create Transaction by passing in all details and optional category and/or memo:
     $routingNumber = '123456789';
     $accountNumber = '123456';
     $amount        = '150.92';
+    $type          = 'debit';
     $category      = 'Online Orders';
     $memo          = 'Order# 1234';
     
-    $transaction = $ebanc->createTransaction($firstName, $lastName, $routingNumber, $accountNumber, $smount, $category, $memo);
+    $transaction = $ebanc->createTransaction($firstName, $lastName, $routingNumber, $accountNumber, $amount, $type, $category, $memo);
     
     if($transaction){
       echo 'Transaction for '.$transaction['amount'].' with the UUID of '.$transaction['uuid'].' was created';
@@ -159,14 +162,15 @@ Create Transaction by passing in customer UUID:
       echo $ebanc->getError();
     }
 
-Create Transaction by passing in customer UUID and optional category and/or memo:
+Create Transaction by passing in customer UUID and optional type, category and/or memo:
 
     $uuid     = '03ae8670-27d3-0132-54de-1040f38cff7c';
     $amount   = '51.50';
+    $type     = 'debit';
     $category = 'Online Orders';
     $memo     = 'Order# 1234';
     
-    $transaction = $ebanc->createTransactionForCustomer($uuid, $amount, $category, $memo);
+    $transaction = $ebanc->createTransactionForCustomer($uuid, $amount, $type, $category, $memo);
     
     if($transaction){
       echo 'Transaction for '.$transaction['amount'].' with the UUID of '.$transaction['uuid'].' was created';

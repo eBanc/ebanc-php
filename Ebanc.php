@@ -197,9 +197,9 @@ class Ebanc {
 	 * @return Transactions Object
 	 * @author Kevin Kaske
 	 */
-	public function createTransaction($firstName, $lastName, $routingNumber, $accountNumber, $amount, $category = null, $memo = null) {
+	public function createTransaction($firstName, $lastName, $routingNumber, $accountNumber, $amount, $type = 'debit', $category = null, $memo = null) {
 		$url = $this->ebancUrl.'/transactions';
-		$fields = array('first_name' => $firstName, 'last_name' => $lastName, 'account_number' => $accountNumber, 'routing_number' => $routingNumber, 'amount' => $amount, 'category' => $category, 'memo' => $memo);
+		$fields = array('first_name' => $firstName, 'last_name' => $lastName, 'account_number' => $accountNumber, 'routing_number' => $routingNumber, 'amount' => $amount, 'category' => $category, 'memo' => $memo, 'type' => $type);
 		$transaction = $this->queryApi($url, true, false, $fields);
 		
 		if(isset($transaction['base'])){
@@ -217,9 +217,9 @@ class Ebanc {
 	 * @return Transactions Object
 	 * @author Kevin Kaske
 	 */
-	public function createTransactionForCustomer($customerUUID, $amount, $category = null, $memo = null) {
+	public function createTransactionForCustomer($customerUUID, $amount, $type = 'debit', $category = null, $memo = null) {
 		$url = $this->ebancUrl.'/transactions';
-		$fields = array('customer_uuid' => $customerUUID, 'amount' => $amount, 'category' => $category, 'memo' => $memo);
+		$fields = array('customer_uuid' => $customerUUID, 'amount' => $amount, 'category' => $category, 'memo' => $memo, 'type' => $type);
 		$transaction = $this->queryApi($url, true, false, $fields);
 		
 		if(isset($transaction['base'])){
