@@ -195,6 +195,7 @@ class Ebanc {
 	 * @param string $routingNumber
 	 * @param string $accountNumber
 	 * @param float $amount
+	 * @param string $type
 	 * @param string $category
 	 * @param string $memo
 	 * @return Transactions Object
@@ -218,6 +219,7 @@ class Ebanc {
 	 *
 	 * @param string $customerUUID
 	 * @param float $amount
+	 * @param string $type
 	 * @param string $category
 	 * @param string $memo
 	 * @return Transactions Object
