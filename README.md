@@ -10,14 +10,8 @@ When using PHP bindings for the eBanc API, there are a two main ways to use in y
 ####Composer####
 You can add this to your project via composer by including the following information in your composer.json file:
 
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/eBanc/ebanc-php"
-        }
-    ],
     "require": {
-        "ebanc/ebanc-php": "master"
+        "ebanc/ebanc-php": "dev-master"
     }
 
 Usage
