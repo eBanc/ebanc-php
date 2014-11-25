@@ -116,7 +116,7 @@ Create Transaction by passing in all details.
     $accountNumber = '123456';
     $amount        = '150.92';
     
-    $transaction = $ebanc->createTransaction($firstName, $lastName, $routingNumber, $accountNumber, $smount);
+    $transaction = $ebanc->createTransaction($firstName, $lastName, $routingNumber, $accountNumber, $amount);
     
     if($transaction){
       echo 'Transaction for '.$transaction['amount'].' with the UUID of '.$transaction['uuid'].' was created';

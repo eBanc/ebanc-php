@@ -61,13 +61,32 @@ class Ebanc {
 	------------------------------- */
 	
 	/**
-	 * Gets all customers.
+	 * Gets customers for this account.
+	 * Suppoerts search on customer name
+	 * and pagination
 	 *
+	 * @param string query
+	 * @param integer page
+	 * @param integer per_page
 	 * @return array of Customer Objects by Hash
 	 * @author Kevin Kaske
 	 */
-	public function getCustomers() {
+	public function getCustomers($query=null, $page=null, $perPage=30) {
 		$url = $this->ebancUrl.'/customers';
+		if($page){
+			$url = $url.'?page='.$page.'&per_page='.$perPage;
+		}
+		
+		if($query){
+			//Add or Append to url params
+			if(strpos($url,'?') !== false){
+				$url = $url.'&';
+			}else{
+				$url = $url.'?';
+			}
+			
+			$url = $url.'query='.$query;
+		}
 		$customers = $this->queryApi($url);
 		
 		if(count($customers['customers']) == 0){
@@ -152,13 +171,20 @@ class Ebanc {
 				Transactions
 	------------------------------- */
 	/**
-	 * Gets last 50 transactions
+	 * Gets transactions for this account
+	 * defaults to the latest 50 transaction
+	 * supports pagination
 	 *
+	 * @param int $page
+	 * @param int $perPage
 	 * @return array of Transaction Objects by Hash
 	 * @author Kevin Kaske
 	 */
-	public function getTransactions() {
+	public function getTransactions($page=null, $perPage=50) {
 		$url = $this->ebancUrl.'/transactions';
+		if($page){
+			$url = $url.'?page='.$page.'&per_page='.$perPage;
+		}
 		$transactions = $this->queryApi($url);
 		
 		if(count($transactions['transactions']) == 0){
@@ -246,6 +272,14 @@ class Ebanc {
 		$this->errorMessage = '';
 		
 		$curl = curl_init();
+		$token = 'token='.$this->apiKey;
+		
+		//Add or Append to url params
+		if(strpos($url,'?') !== false){
+			$token = '&'.$token;
+		}else{
+			$token = '?'.$token;
+		}
 		curl_setopt($curl, CURLOPT_URL, $url.'?token='.$this->apiKey);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
