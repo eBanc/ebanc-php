@@ -1,3 +1,7 @@
 {
-	"name": "ebanc/ebanc"
+	"name": "ebanc/ebanc-php",
+	"description": "PHP bindings for the eBanc API",
+	"require": {
+		"php": ">=5.3.0"
+	}
 }
