@@ -172,6 +172,18 @@ class Ebanc {
 		}
 	}
 	
+	/**
+	 * Delete customer.
+	 *
+	 * @param string $uuid
+	 * @return Void
+	 * @author Kevin Kaske
+	 */
+	public function deleteCustomer($uuid){
+		$url = $this->ebancUrl.'/customers/'.$uuid;
+		$this->queryApi($url, $post = false, $patch = false, $fields = null, true);
+	}
+	
 	/* -------------------------------
 				Transactions
 	------------------------------- */
@@ -273,7 +285,7 @@ class Ebanc {
 				Utility Functions
 	------------------------------- */
 	
-	public function queryApi($url, $post = false, $patch = false, $fields = null){
+	public function queryApi($url, $post = false, $patch = false, $fields = null, $delete = null){
 		$this->errorMessage = '';
 		
 		$curl = curl_init();
@@ -292,6 +304,10 @@ class Ebanc {
 		
 		if($patch){
 			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PATCH');
+		}
+		
+		if($delete){
+			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
 		}
 		
 		if($fields != null){
