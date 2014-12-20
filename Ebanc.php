@@ -311,5 +311,13 @@ class Ebanc {
 		$this->errorMessage = '';
 		return $error;
 	}
+	
+	public function isError() {
+		if($this->errorMessage == ''){
+			return false;
+		}else{
+			return true;
+		}
+	}
 }
 ?>
