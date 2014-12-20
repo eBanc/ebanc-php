@@ -161,7 +161,12 @@ class Ebanc {
 		
 		if($this->getCustomer($uuid)){
 			$customer = $this->queryApi($url, true, true, $fields);
-			return $customer;
+			if(isset($customer['base'])){
+				$this->errorMessage = $customer['base'][0];
+				return false;
+			}else{
+				return $customer;
+			}
 		}else{
 			return false;
 		}
