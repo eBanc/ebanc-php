@@ -246,7 +246,7 @@ class Ebanc {
 	 */
 	public function createTransaction($firstName, $lastName, $routingNumber, $accountNumber, $amount, $type = 'debit', $category = null, $memo = null) {
 		$url = $this->ebancUrl.'/transactions';
-		$fields = array('first_name' => $firstName, 'last_name' => $lastName, 'account_number' => $accountNumber, 'routing_number' => $routingNumber, 'amount' => $amount, 'category' => $category, 'memo' => $memo, 'type' => $type);
+		$fields = array('first_name' => $firstName, 'last_name' => $lastName, 'account_number' => $accountNumber, 'routing_number' => $routingNumber, 'amount' => $amount, 'category' => $category, 'memo' => $memo, 'transaction_type' => $type);
 		$transaction = $this->queryApi($url, true, false, $fields);
 		
 		if(isset($transaction['base'])){
@@ -270,7 +270,7 @@ class Ebanc {
 	 */
 	public function createTransactionForCustomer($customerUUID, $amount, $type = 'debit', $category = null, $memo = null) {
 		$url = $this->ebancUrl.'/transactions';
-		$fields = array('customer_uuid' => $customerUUID, 'amount' => $amount, 'category' => $category, 'memo' => $memo, 'type' => $type);
+		$fields = array('customer_uuid' => $customerUUID, 'amount' => $amount, 'category' => $category, 'memo' => $memo, 'transaction_type' => $type);
 		$transaction = $this->queryApi($url, true, false, $fields);
 		
 		if(isset($transaction['base'])){
