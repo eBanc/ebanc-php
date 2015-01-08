@@ -311,7 +311,13 @@ class Ebanc {
 		}
 		
 		if($fields != null){
-			curl_setopt($curl, CURLOPT_POSTFIELDS,$fields);
+			$encoded = '';
+			foreach($fields as $name => $value){
+				$encoded .= urlencode($name).'='.urlencode($value).'&';
+			}
+			// chop off the last ampersand
+			$encoded = substr($encoded, 0, strlen($encoded)-1);
+			curl_setopt($curl, CURLOPT_POSTFIELDS,$encoded);
 		}
 		
 		$result = curl_exec($curl);
