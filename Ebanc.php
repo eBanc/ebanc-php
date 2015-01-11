@@ -231,6 +231,24 @@ class Ebanc {
 	}
 	
 	/**
+	 * Gets categories for this account that transactions have
+	 * been submitted to
+	 *
+	 * @return array of Category Objects by Hash
+	 * @author Kevin Kaske
+	 */
+	public function getCategories() {
+		$url = $this->ebancUrl.'/transactions/categories';
+		$categories = $this->queryApi($url);
+		
+		if(count($categories['categories']) == 0){
+			$this->errorMessage = 'No categories found';
+		}
+		
+		return $categories['categories'];
+	}
+	
+	/**
 	 * Create transaction.
 	 *
 	 * @param string $firstName
