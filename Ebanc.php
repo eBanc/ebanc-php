@@ -199,7 +199,7 @@ class Ebanc {
 	 * @return array of Recurring Objects by Hash
 	 * @author Kevin Kaske
 	 */
-	public function getRecurring($recurringType=null, $page=null, $perPage=30) {
+	public function getRecurrings($recurringType=null, $page=null, $perPage=30) {
 		$url = $this->ebancUrl.'/recurrings';
 		if($page){
 			$url = $url.'?page='.$page.'&per_page='.$perPage;
