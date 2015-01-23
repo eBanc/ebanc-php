@@ -246,7 +246,7 @@ class Ebanc {
 	/**
 	 * Is Even Week
 	 *
-	 * @return True if eBanc considers this an even week. False if this is an odd week. (Used when setting up a biweekly recurring schedule by weekday name)
+	 * @return Boolean
 	 * @author Kevin Kaske
 	 */
 	public function isEvenWeek() {
