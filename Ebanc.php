@@ -185,6 +185,136 @@ class Ebanc {
 	}
 	
 	/* -------------------------------
+				Recurring
+	------------------------------- */
+	
+	/**
+	 * Gets recurring for this account.
+	 * Suppoerts search on recurring name
+	 * and pagination
+	 *
+	 * @param string recurringType
+	 * @param integer page
+	 * @param integer perPage
+	 * @return array of Recurring Objects by Hash
+	 * @author Kevin Kaske
+	 */
+	public function getRecurring($recurringType=null, $page=null, $perPage=30) {
+		$url = $this->ebancUrl.'/recurrings';
+		if($page){
+			$url = $url.'?page='.$page.'&per_page='.$perPage;
+		}
+		
+		if($recurringType){
+			//Add or Append to url params
+			if(strpos($url,'?') !== false){
+				$url = $url.'&';
+			}else{
+				$url = $url.'?';
+			}
+			
+			$url = $url.'recurring_type='.$recurringType;
+		}
+		$recurring = $this->queryApi($url);
+		
+		if(count($recurring['recurring']) == 0){
+			$this->errorMessage = 'No recurring found';
+		}
+		
+		return $recurring['recurring'];
+	}
+	
+	/**
+	 * Gets a specific recurring.
+	 *
+	 * @param string $uuid
+	 * @return Recurring Object
+	 * @author Kevin Kaske
+	 */
+	public function getRecurring($uuid) {
+		$url = $this->ebancUrl.'/recurrings/'.$uuid;
+		$recurring = $this->queryApi($url);
+		
+		if(count($recurring) == 0){
+			$this->errorMessage = 'Recurring not found';
+			return false;
+		}else{
+			return $recurring;
+		}
+	}
+	
+	/**
+	 * Create recurring.
+	 *
+	 * @param string $customer_uuid
+	 * @param string $recurring_type
+	 * @param string $recurring_options
+	 * @param string $amount
+	 * @param string $category
+	 * @return Recurring Objects by Hash
+	 * @author Kevin Kaske
+	 */
+	public function createRecurring($customer_uuid, $recurring_type, $recurring_options, $amount, $category=null) {
+		$url = $this->ebancUrl.'/recurrings';
+		$fields = array('customer_uuid' => $customer_uuid, 'recurring_type' => $recurring_type, 'recurring_options' => $recurring_options, 'amount' => $amount);
+		if($category){
+			$fields['category'] = $category;
+		}
+		$recurring = $this->queryApi($url, true, false, $fields);
+		
+		if(isset($recurring['base'])){
+			$this->errorMessage = $recurring['base'][0];
+			return false;
+		}else{
+			return $recurring;
+		}
+	}
+	
+	/**
+	 * Update recurring.
+	 *
+	 * @param string $uuid
+	 * @param string $customer_uuid
+	 * @param string $recurring_type
+	 * @param string $recurring_options
+	 * @param string $amount
+	 * @param string $category
+	 * @return Recurring Objects by Hash
+	 * @author Kevin Kaske
+	 */
+	public function updateRecurring($uuid, $customer_uuid, $recurring_type, $recurring_options, $amount, $category=null) {
+		$url = $this->ebancUrl.'/recurrings/'.$uuid;
+		$fields = array('customer_uuid' => $customer_uuid, 'recurring_type' => $recurring_type, 'recurring_type' => $recurring_type, 'recurring_options' => $recurring_options, 'amount' => $amount);
+		if($category){
+			$fields['category'] = $category;
+		}
+		
+		if($this->getRecurring($uuid)){
+			$recurring = $this->queryApi($url, true, true, $fields);
+			if(isset($recurring['base'])){
+				$this->errorMessage = $recurring['base'][0];
+				return false;
+			}else{
+				return $recurring;
+			}
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * Delete recurring.
+	 *
+	 * @param string $uuid
+	 * @return Void
+	 * @author Kevin Kaske
+	 */
+	public function deleteRecurring($uuid){
+		$url = $this->ebancUrl.'/recurrings/'.$uuid;
+		$this->queryApi($url, $post = false, $patch = false, $fields = null, true);
+	}
+	
+	/* -------------------------------
 				Transactions
 	------------------------------- */
 	/**
@@ -276,7 +406,7 @@ class Ebanc {
 	}
 	
 	/**
-	 * Create transaction.
+	 * Create transaction for customer
 	 *
 	 * @param string $customerUUID
 	 * @param float $amount
