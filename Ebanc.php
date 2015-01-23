@@ -249,7 +249,7 @@ class Ebanc {
 	 * @return True if eBanc considers this an even week. False if this is an odd week. (Used when setting up a biweekly recurring schedule by weekday name)
 	 * @author Kevin Kaske
 	 */
-	public function is_even_week() {
+	public function isEvenWeek() {
 		$url = $this->ebancUrl.'/recurrings/is_even_week';
 		if($this->queryApi($url) == 'true'){
 			return true;
