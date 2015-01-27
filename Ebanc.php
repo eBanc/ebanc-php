@@ -269,9 +269,9 @@ class Ebanc {
 	 * @return Recurring Objects by Hash
 	 * @author Kevin Kaske
 	 */
-	public function createRecurring($customer_uuid, $recurring_type, $recurring_options, $amount, $category=null) {
+	public function createRecurring($customer_uuid, $transaction_type, $recurring_type, $recurring_options, $amount, $category=null) {
 		$url = $this->ebancUrl.'/recurrings';
-		$fields = array('customer_uuid' => $customer_uuid, 'recurring_type' => $recurring_type, 'recurring_options' => $recurring_options, 'amount' => $amount);
+		$fields = array('transaction_type' => $transaction_type, 'customer_uuid' => $customer_uuid, 'recurring_type' => $recurring_type, 'recurring_options' => $recurring_options, 'amount' => $amount);
 		if($category){
 			$fields['category'] = $category;
 		}
