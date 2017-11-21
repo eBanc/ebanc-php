@@ -7,7 +7,7 @@ Installation
 ------------
 When using PHP bindings for the eBanc API, there are a two main ways to use in your project. The first way is to just download the Ebanc.php file and require it in your project. The other way is via composer.
 
-####Composer####
+#### Composer
 You can add this to your project via composer by including the following information in your composer.json file:
 
     "require": {
@@ -17,7 +17,7 @@ You can add this to your project via composer by including the following informa
 Usage
 -----
 
-####Initalize####
+#### Initalize
 You initalize the API client in the following way:
 
     require_once('Ebanc.php');
@@ -27,7 +27,7 @@ You initalize the API client in the following way:
     $ebanc = new Ebanc($apiKey, $gatewayId);
 
 
-####Customers####
+#### Customers
 
 Get a list of all this account's customers
 
@@ -81,7 +81,7 @@ Update a customer:
     }
 
 
-####Transactions####
+#### Transactions
 
 Get a list of all this account's last 50 transactions
 
@@ -99,7 +99,7 @@ Get a the latest information about a specific transaction
       echo $ebanc->getError();
     }
 
-#####Creating Transactions#####
+##### Creating Transactions
 When creating a transaction you can either pass in all customer details or simply pass in the uuid for an already created customer. Sometimes it makes sense to just pass in all of the details. This is usually in the case of a single transaction. Other times it makes more sense to store the customer details and just store that uuid on your server to pass in at payment time. This is a good approch when you will have returning customers or need to setup some kind of a schedule, but don't want to store that sensitive information on your server.
 
 Create Transaction by passing in all details.
@@ -118,7 +118,7 @@ Create Transaction by passing in all details.
       echo $ebanc->getError();
     }
 
-######Types, Categories and, Memos######
+###### Types, Categories and, Memos
 Transaction type can be a debit or credit. If you do not pass in a transaction type, debit is defaulted.
 
 A category and memo can be used together or seperate to help you with reporting later. The category helps group transaction types together (Example: "Online orders" and "In-store orders"). The memo helps discribe that specific transaction (Example: Put in the ID number of order from your eCommerce or POS system to tie that transaction to the correct order).
@@ -142,7 +142,7 @@ Create Transaction by passing in all details and optional category and/or memo:
       echo $ebanc->getError();
     }
 
-######Customer UUID######
+###### Customer UUID
 Create Transaction by passing in customer UUID:
 
     $uuid   = '03ae8670-27d3-0132-54de-1040f38cff7c';
